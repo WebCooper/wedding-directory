@@ -19,19 +19,21 @@ const createUser_1 = require("../inputs/createUser");
 const user_service_1 = require("../../modules/user/user.service");
 const userSetting_service_1 = require("../../modules/user/userSetting.service");
 const userSetting_model_1 = require("../models/userSetting.model");
+const user_repository_1 = require("../../database/repositories/user.repository");
 let UserResolver = class UserResolver {
-    constructor(userService, userSettingService) {
+    constructor(userService, userSettingService, userRepository) {
         this.userService = userService;
         this.userSettingService = userSettingService;
+        this.userRepository = userRepository;
     }
     getUserById(id) {
-        return this.userService.getUserById(id);
+        return this.userRepository.findUserById(id);
     }
     async getAllUsers() {
-        return this.userService.getAllUsers();
+        return this.userRepository.findAllUsers();
     }
     getUserSettings(user) {
-        return this.userSettingService.getUserSettingById(user.id);
+        return this.userSettingService.findUserSettingById(user.id);
     }
     async createUser(createUserData) {
         return this.userService.createUser(createUserData);
@@ -68,6 +70,7 @@ __decorate([
 exports.UserResolver = UserResolver = __decorate([
     (0, graphql_1.Resolver)(() => user_model_1.UserModel),
     __metadata("design:paramtypes", [user_service_1.UserService,
-        userSetting_service_1.UserSettingService])
+        userSetting_service_1.UserSettingService,
+        user_repository_1.UserRepository])
 ], UserResolver);
 //# sourceMappingURL=user.resolver.js.map

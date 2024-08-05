@@ -4,6 +4,6 @@ import { UserSettingRepository } from 'src/database/repositories/userSetting.rep
 export declare class UserSettingService {
     private userSettingRepository;
     constructor(userSettingRepository: UserSettingRepository);
-    getUserSettingById(userId: number): Promise<UserSettingEntity>;
+    findUserSettingById(userId: number): Promise<UserSettingEntity>;
     createUserSettings(createUserSettingsData: CreateUserSettingsInput): Promise<UserSettingEntity>;
 }

@@ -16,7 +16,7 @@ let UserSettingService = class UserSettingService {
     constructor(userSettingRepository) {
         this.userSettingRepository = userSettingRepository;
     }
-    async getUserSettingById(userId) {
+    async findUserSettingById(userId) {
         return this.userSettingRepository.findByUserId(userId);
     }
     async createUserSettings(createUserSettingsData) {

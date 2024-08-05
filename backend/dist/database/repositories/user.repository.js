@@ -16,10 +16,6 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
     async findAllUsers() {
         return this.find();
     }
-    async createUser(createUserData) {
-        const user = this.create(createUserData);
-        return this.save(user);
-    }
 };
 exports.UserRepository = UserRepository;
 exports.UserRepository = UserRepository = __decorate([
