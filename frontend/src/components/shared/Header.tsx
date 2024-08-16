@@ -24,10 +24,8 @@ const Header = () => {
             </h1>
           </Link>
 
-          <Link href="/login">
-            <Button variant="login">Login</Button>
-          </Link>
-          <Link href="/sign-up">
+
+          <Link href="/sign-up" />
 
           {/*desktop nav */}
           <div className="hidden xl:flex items-center gap-8">
