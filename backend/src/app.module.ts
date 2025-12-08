@@ -33,7 +33,6 @@ import { EmbeddingsModule } from "./modules/ai/embeddings.module";
       useFactory: () => ({
         type: "postgres",
         url: process.env.DATABASE_URL,
-        ssl: true,
         entities: [join(__dirname, "**", "*.entity.{ts,js}")],
         synchronize: process.env.TYPEORM_SYNC === "true",
       }),
