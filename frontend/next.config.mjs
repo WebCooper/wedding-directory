@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "multi-vendor-wedding-directory.s3.ap-south-1.amazonaws.com",
+        hostname: "multi-vendor-wedding-directory-1.s3.ap-south-1.amazonaws.com",
         port: "",
         pathname: "/**", // all paths under this hostname are allowed
       },
