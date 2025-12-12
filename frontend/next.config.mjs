@@ -20,6 +20,12 @@ const nextConfig = {
         port: "5000",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "minio.internalbuildtools.online",
+        port: "",
+        pathname: "/**",
+      }
     ],
   },
   optimizeFonts: false,
