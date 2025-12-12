@@ -8,52 +8,46 @@ export class UploadService {
 
   constructor(private configService: ConfigService) {
     this.s3Client = new S3Client({
-      region: this.configService.get<string>('AWS_S3_REGION'),
+      region: this.configService.get<string>('AWS_S3_REGION') || 'us-east-1',
       credentials: {
         accessKeyId: this.configService.get<string>('AWS_ACCESS_KEY_ID'),
-        secretAccessKey: this.configService.get<string>(
-          'AWS_SECRET_ACCESS_KEY',
-        ),
+        secretAccessKey: this.configService.get<string>('AWS_SECRET_ACCESS_KEY'),
       },
+
+      // IMPORTANT for MinIO
+      endpoint: 'https://minio.internalbuildtools.online',
+      forcePathStyle: true,
     });
   }
 
-  // Method to upload an image
   async uploadImage(fileName: string, fileBuffer: Buffer) {
     const bucket = this.configService.get<string>('AWS_S3_BUCKET_NAME');
-    const region = this.configService.get<string>('AWS_S3_REGION');
 
-    if (!bucket || !region) {
-      throw new Error('S3 bucket name or region not configured properly');
-    }
     const params = {
       Bucket: bucket,
       Key: fileName,
       Body: fileBuffer,
-      ContentType: 'image/jpeg|image/png', // Or 'image/png'
+      ContentType: 'image/jpeg', // Or dynamic based on file
     };
 
     await this.s3Client.send(new PutObjectCommand(params));
 
-    return `https://${bucket}.s3.${region}.amazonaws.com/${fileName}`;
+    // PUBLIC URL USING MINIO FORMAT
+    return `https://minio.internalbuildtools.online/${bucket}/${fileName}`;
   }
 
-  // Method to upload a video
   async uploadVideo(fileName: string, fileBuffer: Buffer) {
     const bucket = this.configService.get<string>('AWS_S3_BUCKET_NAME');
-    const region = this.configService.get<string>('AWS_S3_REGION');
 
-    if (!bucket || !region) {
-      throw new Error('S3 bucket name or region not configured properly');
-    }
     const params = {
       Bucket: bucket,
       Key: fileName,
       Body: fileBuffer,
-      ContentType: 'video/mp4|video/webm',
-    }
+      ContentType: 'video/mp4',
+    };
 
     await this.s3Client.send(new PutObjectCommand(params));
-    return `https://${bucket}.s3.${region}.amazonaws.com/${fileName}`;
+
+    return `https://minio.internalbuildtools.online/${bucket}/${fileName}`;
   }
 }
